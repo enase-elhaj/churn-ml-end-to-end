@@ -1,5 +1,5 @@
 
-Customer Churn Prediction — End-to-End Machine Learning Pipeline
+## Customer Churn Prediction — End-to-End Machine Learning Pipeline
 
 📌 About This Project
 
@@ -91,11 +91,11 @@ CLTV: Customer Lifetime Value. A predicted CLTV is calculated using corporate fo
 Churn Reason: A customer’s specific reason for leaving the company. Directly related to Churn Category.
 
 
-Methodology & Workflow
+## Methodology & Workflow
 
 This project follows a modular, pipeline-based machine learning workflow, separating exploration, preprocessing, modeling, and evaluation.
 
-Step 1 — Exploratory Data Analysis (EDA)
+## Step 1 — Exploratory Data Analysis (EDA)
 
 Tool: Jupyter Notebook (notebooks/01_eda.ipynb)
 
@@ -127,7 +127,7 @@ Several columns contain post-outcome or derived information and must be excluded
 
 EDA outputs were used to inform feature selection and preprocessing decisions, not to train models.
 
-Step 2 — Feature Selection & Exclusion
+## Step 2 — Feature Selection & Exclusion
 
 Feature decisions were finalized based on EDA insights.
 
@@ -153,7 +153,7 @@ Churn Reason
 
 CLTV
 
-Step 3 — Feature Grouping (Preprocessing Design)
+## Step 3 — Feature Grouping (Preprocessing Design)
 
 Features were grouped before preprocessing, enabling clean and reproducible pipelines.
 
@@ -182,7 +182,7 @@ Senior Citizen, Gender, Partner, Dependents
 
 These decisions are centralized in config.py, acting as a single source of truth.
 
-Step 4 — Preprocessing Pipeline (Execution)
+## Step 4 — Preprocessing Pipeline (Execution)
 
 Tools: scikit-learn Pipelines & ColumnTransformer
 
@@ -208,7 +208,7 @@ Reproducibility
 
 Safe deployment-ready design
 
-Step 5 — Model Training
+## Step 5 — Model Training
 
 Baseline Model: Logistic Regression
 File: src/train.py
@@ -248,7 +248,7 @@ Better capture interactions between contract type, pricing, and service features
 
 Compare interpretability vs performance trade-offs against Logistic Regression
 
-Step 6 — Model Evaluation
+## Step 6 — Model Evaluation
 
 Files:
 
@@ -298,19 +298,21 @@ ROC-AUC: 0.8538
 
 Random Forest improves overall performance (accuracy, precision, F1, ROC-AUC) while maintaining high recall, making it a strong candidate model for churn prediction.
 
-Model Comparison Summary
-Metric	Logistic Regression	Random Forest
-Accuracy	0.7431	0.7658
-Precision	0.5105	0.5415
-Recall	0.7807	0.7674
-F1-score	0.6173	0.6350
-ROC-AUC	0.8488	0.8538
+### Model Comparison Summary
+
+| Metric    | Logistic Regression | Random Forest |
+|-----------|---------------------|--------------|
+| Accuracy  | 0.7431              | 0.7658       |
+| Precision | 0.5105              | 0.5415       |
+| Recall    | 0.7807              | 0.7674       |
+| F1-score  | 0.6173              | 0.6350       |
+| ROC-AUC   | 0.8488              | 0.8538       |
 
 Logistic Regression serves as an interpretable baseline.
 
 Random Forest offers better overall performance and similar recall, making it preferable when performance is prioritized over interpretability.
 
-Step 7 — Decision Threshold Tuning
+## Step 7 — Decision Threshold Tuning
 
 Default binary classifiers use a 0.50 probability threshold, but in churn prediction this is not always optimal. The business objective is to:
 
@@ -318,14 +320,17 @@ Minimize false negatives (missed churners) while still maintaining reasonable pr
 
 A dedicated threshold tuning script (src/tune_threshold.py) evaluated multiple thresholds using the same test set:
 
-Threshold	Accuracy	Precision	Recall	F1
-0.30	0.6870	0.4553	0.9118	0.6073
-0.35	0.7069	0.4719	0.8770	0.6137
-0.40	0.7346	0.5000	0.8583	0.6319
-0.45	0.7530	0.5223	0.8128	0.6360
-0.50	0.7658	0.5415	0.7674	0.6350
-0.55	0.7857	0.5766	0.7246	0.6422
+Because churn is cost-sensitive, different probability thresholds were evaluated for the Random Forest model:
 
+| Threshold | Accuracy | Precision | Recall | F1    |
+|----------:|---------:|----------:|-------:|------:|
+| 0.30      | 0.6870   | 0.4553    | 0.9118 | 0.6073 |
+| 0.35      | 0.7069   | 0.4719    | 0.8770 | 0.6137 |
+| 0.40      | 0.7346   | 0.5000    | 0.8583 | 0.6319 |
+| **0.45**  | **0.7530** | **0.5223** | **0.8128** | **0.6360** |
+| 0.50      | 0.7658   | 0.5415    | 0.7674 | 0.6350 |
+| 0.55      | 0.7857   | 0.5766    | 0.7246 | 0.6422 |
+ 
 📌 Selected Threshold: 0.45
 
 Maintains strong recall (> 0.80)
@@ -336,7 +341,7 @@ Balances cost of outreach vs. missed churn risk
 
 This threshold is applied in inference for the final churn decision.
 
-Step 8 — Inference Pipeline (Real-World Usability)
+## Step 8 — Inference Pipeline (Real-World Usability)
 
 A deployment-ready inference script (src/infer.py) was implemented to simulate production usage.
 
@@ -368,20 +373,22 @@ Captures nonlinear churn behavior
 
 The system is modular and supports swapping models if priorities change.
 
-Step 9 — Feature Importance (Model Explainability)
+## Step 9 — Feature Importance (Model Explainability)
 
 To move beyond prediction and understand why customers churn, Random Forest feature importance was evaluated using the full preprocessing pipeline.
 
-🔝 Top Drivers of Churn
-Rank	 Feature	                             Interpretation
-1	    Contract: Month-to-Month	             Short-term customers are most likely to churn
-2	    Tenure Months	                         Newer customers churn significantly more
-3	    Total Charges	                         Financial accumulation influences churn
-4	    Online Security = No	                 Lack of protection services increases churn
-5	    Contract: Two-Year	                     Long contracts reduce churn risk
-6   	Tech Support = No	                     Lower perceived support → higher churn
-7	    Monthly Charges	                         Higher bills drive dissatisfaction
-8–10	Dependents / Internet Service Type	     Secondary demographic and service effects
+Top Drivers of Churn
+
+| Rank | Feature                      | Interpretation                                      |
+|------|-----------------------------|-----------------------------------------------------|
+| 1    | Contract: Month-to-Month    | Short-term customers are most likely to churn       |
+| 2    | Tenure Months               | Newer customers churn significantly more            |
+| 3    | Total Charges               | Higher cumulative charges increase churn risk       |
+| 4    | Online Security = No        | Lack of protection services increases churn         |
+| 5    | Contract: Two-Year          | Longer contracts reduce churn risk                  |
+| 6    | Tech Support = No           | Lower perceived support drives dissatisfaction      |
+| 7    | Monthly Charges             | Higher monthly bills correlate with churn           |
+| 8–10 | Dependents / Internet Type  | Secondary demographic and service-related effects   |
 
 📌 Business Insight
 Churn is primarily influenced by customer lifecycle, pricing pressure, and service experience, which aligns with real-world telecom churn research.
@@ -391,7 +398,7 @@ Plots saved to:
 reports/rf_feature_importance.csv
 reports/figures/rf_feature_importance.png
 
-Step 10 — SHAP Explainability (Advanced Model Transparency)
+## Step 10 — SHAP Explainability (Advanced Model Transparency)
 
 To provide deeper interpretability, SHAP (SHapley Additive exPlanations) was applied.
 
@@ -414,11 +421,13 @@ This validates model behavior and supports actionable strategy.
 Plots saved to:
 
 reports/figures/shap_summary_plot.png
+
 reports/figures/shap_bar_plot.png
 
 
-Project Structure
+## 📂 Project Structure
 
+```text
 churn-ml-end-to-end/
 │
 ├── data/
@@ -464,37 +473,26 @@ churn-ml-end-to-end/
 ├── requirements.txt
 └── README.md
 
+
 Final Model Summary & Business Impact:
 
 This project delivers a production-aligned churn prediction system with:
 
-✔ Clean EDA & leakage-aware feature engineering
-✔ Robust ML pipeline design
-✔ Baseline + advanced model comparison
-✔ Imbalance handling & stratified evaluation
-✔ Decision threshold optimization
-✔ Deployment-oriented inference pipeline
-✔ Explainability via feature importance + SHAP
-✔ Actionable business insights
+-  Leakage-aware data preparation and EDA  
+-  Pipeline-based preprocessing (scaling, encoding, imputation)  
+-  Baseline vs nonlinear model comparison (Logistic Regression vs Random Forest)  
+-  Imbalanced classification strategy (`class_weight="balanced"` + stratified split)  
+-  Decision threshold tuning focused on recall and business risk  
+-  Deployment-style inference (`infer.py`) for scoring new customers  
+-  Model explainability using Random Forest feature importance and SHAP 
 
 What This Means for a Telecom Business?
 
-Identify high-risk customers early
-Prioritize month-to-month & new users
-Focus on pricing communication & support quality
-Offer retention incentives before churn happens
-Final Methodology Terminology 
-
-This project demonstrates:
-
-End-to-End Machine Learning Pipeline
-Pipeline-based preprocessing
-Leakage-aware feature selection
-Imbalanced classification strategy
-Baseline vs nonlinear model comparison
-Threshold tuning for decision optimization
-Model interpretability (Feature Importance + SHAP)
-Deployment-ready inference architecture
+- Identify high-risk customers early
+- Prioritize month-to-month & new users
+- Focus on pricing communication & support quality
+- Offer retention incentives before churn happens
+- Final Methodology Terminology 
 
 How to Run This Project
 
@@ -508,7 +506,9 @@ cd churn-ml-end-to-end
 
 python -m venv .venv
 .venv\Scripts\activate      # Windows
-# source .venv/bin/activate # Mac/Linux
+
+#source .venv/bin/activate # Mac/Linux
+
 pip install -r requirements.txt
 
 
@@ -562,6 +562,7 @@ reports/
 👤 Author
 
 Enas Elhaj
+
 Graduate Student — Applied Artificial Intelligence & Data Science
 University of Denver | Ritchie School of Engineering & Computer Science
 
@@ -592,7 +593,7 @@ Data-driven product strategy
 📌 Passionate about
 Turning data into actionable insights that solve real human + business problems.
 
-📫 Contact / Profiles
+📌 Contact / Profiles
 
 LinkedIn: https://www.linkedin.com/in/enas-elhaj/
 
