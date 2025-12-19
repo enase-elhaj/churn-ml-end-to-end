@@ -1,0 +1,47 @@
+feature,importance
+Contract_Month-to-month,0.1355667457962667
+Tenure Months,0.1132135282397313
+Total Charges,0.07940783890761693
+Online Security_No,0.0693970680077083
+Contract_Two year,0.06700888789062352
+Tech Support_No,0.058696817255433624
+Monthly Charges,0.055006562487336874
+Dependents_Yes,0.05185797805862649
+Dependents_No,0.04208620150154866
+Internet Service_Fiber optic,0.03747888598551844
+Payment Method_Electronic check,0.031965146872036804
+Contract_One year,0.02142255206303865
+Online Backup_No,0.017219328812807178
+Internet Service_DSL,0.016512171645507057
+Online Security_Yes,0.013422447511318969
+Tech Support_Yes,0.01081718258083235
+Online Backup_No internet service,0.010730112012077814
+Streaming Movies_No internet service,0.010313453301486156
+Device Protection_No internet service,0.009411222294118593
+Paperless Billing_No,0.00896031113604537
+Paperless Billing_Yes,0.008676064084094284
+Streaming TV_No internet service,0.007959507444198113
+Internet Service_No,0.0071854759725728965
+Online Security_No internet service,0.007162785389072561
+Partner_Yes,0.007124447037485417
+Device Protection_No,0.006791866921040579
+Partner_No,0.006738665594044693
+Online Backup_Yes,0.006485581289273986
+Gender_Female,0.00633882640842256
+Streaming TV_Yes,0.0063065497890978164
+Gender_Male,0.0061970993058194975
+Streaming Movies_Yes,0.005995739095647254
+Tech Support_No internet service,0.005829016274183326
+Multiple Lines_Yes,0.005672323874366931
+Streaming Movies_No,0.005400219306273673
+Streaming TV_No,0.00529098418424077
+Multiple Lines_No,0.005088333153764599
+Payment Method_Bank transfer (automatic),0.005017482206937747
+Payment Method_Credit card (automatic),0.004877515463074561
+Device Protection_Yes,0.004171528384014549
+Payment Method_Mailed check,0.003746617620697063
+Senior Citizen_No,0.0031153352418614943
+Senior Citizen_Yes,0.002800681458164405
+Phone Service_Yes,0.001963565363540654
+Multiple Lines_No phone service,0.0018999395097828713
+Phone Service_No,0.0016694072686480644

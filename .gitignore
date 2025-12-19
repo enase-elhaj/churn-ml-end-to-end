@@ -1,0 +1,25 @@
+
+
+# OS / editor
+.ipynb_checkpoints/
+
+
+# Python virtual env
+.venv/
+env/
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Data and models
+data/raw/
+models/
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
